@@ -1,16 +1,27 @@
 <template>
   <div class="hello">
+    {{num}}{{a}}
   </div>
 </template>
 
 <script>
-// import logo from '../assets/logo.png'
-// import
+import {ref,reactive} from 'vue'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
+  setup(){
+    const num= ref(1);
+    const obj=reactive({a:'a'}) 
+    setTimeout(()=>{
+      num.value=num.value+1000
+    },2000)
+    return {
+      num,
+      ...obj
+    }
+  }
 }
 </script>
 
