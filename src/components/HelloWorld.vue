@@ -1,25 +1,41 @@
 <template>
   <div class="hello">
     {{num}}{{a}}
+    <button @click="add">click</button>
   </div>
 </template>
 
 <script>
-import {ref,reactive} from 'vue'
+import {ref,reactive,onMounted,watch} from 'vue'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
+  // methods:{
+  //   add(){
+  //     num.value+='a'
+  //   }
+  // },
   setup(){
     const num= ref(1);
-    const obj=reactive({a:'a'}) 
-    setTimeout(()=>{
-      num.value=num.value+1000
-    },2000)
+    const obj=reactive({a:'a'})
+    onMounted(()=>{
+      setTimeout(()=>{
+        num.value=num.value+1000
+      },2000)
+    })
+    num.value=num.value+1000
+    watch(num,(value)=>{
+      console.log(value,'value')
+    })
+    const add=()=>{
+      num.value+='a'
+    }
     return {
       num,
-      ...obj
+      ...obj,
+      add
     }
   }
 }
